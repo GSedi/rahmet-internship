@@ -13,7 +13,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->only(['user', 'logout']);
+        $this->middleware('auth:api')->only(['user', 'logout']);
     }
 
     public function register(RegisterRequest $request)

@@ -28,4 +28,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function categories(){
+        return $this->hasMany(Category::class, 'owner_id'); 
+    }
+
+    public function products(){
+        return $this->hasMany(Product::class, 'owner_id'); 
+    }
 }
