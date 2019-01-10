@@ -37,10 +37,13 @@ class RegisterRequest extends FormRequest
                 'required',
                 'min:6',
             ],
-            'confirm_password' => [
+            'password_confirmation' => [
                 'required',
-                'same:password',
             ]
+            // 'confirm_password' => [
+            //     'required',
+            //     'same:password',
+            // ]
         ];
     }
 }

@@ -23,6 +23,8 @@ Route::get('user', 'AuthController@user');
 
 Route::get('categories/{category}/products', 'CategoryProductController@show');
 
+Auth::routes(['verify' => true]);
+
 // Route::group([
 //     'middleware' => 'auth:api'
 //   ], function() {
