@@ -18,9 +18,10 @@ Route::resource('categories', 'CategoryController');
 
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
-
 Route::get('logout', 'AuthController@logout');
 Route::get('user', 'AuthController@user');
+
+Route::get('categories/{category}/products', 'CategoryProductController@show');
 
 // Route::group([
 //     'middleware' => 'auth:api'

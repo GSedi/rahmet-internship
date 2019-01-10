@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->only([
+            'store', 
+            'update',
+            'destroy',
+            ]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,18 +26,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::all();
+
+        return response()->json(Product::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -33,9 +37,16 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['owner_id'] = $request->user()->id;
+
+        $product = Product::create($data);
+
+        $product->categories()->attach($data['category_id_array']);
+
+        return response()->json($product);
     }
 
     /**
@@ -46,18 +57,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return $product->categories;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Product $product)
-    {
-        //
+        // return $product->categories;
+        return response()->json($product);
     }
 
     /**
@@ -67,9 +68,17 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $this->authorize('update', $product);
+
+        $data = $request->all();
+
+        $product->update($data);
+
+        $product->categories()->sync($data['category_id_array'], false);
+
+        return response()->json($product);
     }
 
     /**
@@ -80,6 +89,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $this->authorize('update', $product);
+
+        $product->delete();
+
+        return response()->json([
+                'message' => 'Product Successfully Deleted'
+            ]);
     }
 }

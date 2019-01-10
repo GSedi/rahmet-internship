@@ -86,6 +86,8 @@ class CategoryController extends Controller
     {
         $this->authorize('update', $category);
 
+        $category->products()->detach();
+
         $category->delete();
 
         return response()->json([
