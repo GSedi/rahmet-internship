@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Events\UserRegistered;
 
 class AuthController extends Controller
 {
@@ -21,9 +22,12 @@ class AuthController extends Controller
         $data = $request->all(); 
         $data['password'] = bcrypt($data['password']); 
         $user = User::create($data);
- 
+
+        event(new UserRegistered($user));
+        
         $token = $user->createToken($data['email'])->accessToken;
 
+        // return response()->json(['token' => $token, 'hash' => hash("sha256", $user), 'user' => $user->toArray()], 200);
         return response()->json(['token' => $token], 200);
     }
 

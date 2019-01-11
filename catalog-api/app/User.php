@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
 
@@ -36,5 +36,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function products(){
         return $this->hasMany(Product::class, 'owner_id'); 
+    }
+
+    public function userVerification(){
+        return $this->hasOne(UserVerification::class, 'user_id');
     }
 }

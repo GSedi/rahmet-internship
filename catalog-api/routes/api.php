@@ -23,12 +23,9 @@ Route::get('user', 'AuthController@user');
 
 Route::get('categories/{category}/products', 'CategoryProductController@show');
 
-Auth::routes(['verify' => true]);
 
-// Route::group([
-//     'middleware' => 'auth:api'
-//   ], function() {
-//       Route::get('logout', 'AuthController@logout');
-//       Route::get('user', 'AuthController@user');
-//   });
+Route::get('email/show', "VerificationController@show");  
+Route::get('email/verify', "VerificationController@verify");
+Route::get('email/resend', "VerificationController@resend");  
+
 
