@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->only([
+        $this->middleware(['auth:api', 'verified'])->only([
             'store', 
             'update',
             'destroy',
@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return response()->json(Category::all()->toArray());
+        return response()->json(Category::all());
     }
 
     /**

@@ -12,7 +12,7 @@ class ProductController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api')->only([
+        $this->middleware(['auth:api', 'verified'])->only([
             'store', 
             'update',
             'destroy',

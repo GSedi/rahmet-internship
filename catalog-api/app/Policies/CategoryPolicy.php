@@ -17,8 +17,9 @@ class CategoryPolicy
      */
     public function __construct()
     {
-        //
+        
     }
+    
 
     public function update(User $user, Category $category)
     {

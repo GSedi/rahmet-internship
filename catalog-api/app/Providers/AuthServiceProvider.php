@@ -8,6 +8,7 @@ use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
+
     /**
      * The policy mappings for the application.
      *
@@ -30,6 +31,8 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        //
+        Gate::before(function($user){
+            return $user->isAdmin() || $user->isManager();
+        });
     }
 }

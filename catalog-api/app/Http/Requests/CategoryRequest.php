@@ -27,7 +27,6 @@ class CategoryRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                'unique',
                 'min:3',
                 'max:255',
             ],

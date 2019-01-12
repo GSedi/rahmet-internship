@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens;
 
@@ -40,5 +40,17 @@ class User extends Authenticatable
 
     public function userVerification(){
         return $this->hasOne(UserVerification::class, 'user_id');
+    }
+
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function isAdmin(){
+        return $this->roles()->where('label', 'ADM')->count() ? true : false;
+    }
+
+    public function isManager(){
+        return $this->roles()->where('label', 'MAN')->count() ? true : false;
     }
 }
