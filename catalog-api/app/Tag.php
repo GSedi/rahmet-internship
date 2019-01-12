@@ -4,24 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Tag extends Model
 {
 
-    protected $fillable = [
-        'name', 
-        'description', 
-        'owner_id',
-        'color',
-        'price',
-        'weight'
-    ];
+    protected $fillable = ['title', 'user_id'];
 
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
 
-    public function tags()
+    public function products()
     {
         return $this->belongsToMany(Tag::class);
     }

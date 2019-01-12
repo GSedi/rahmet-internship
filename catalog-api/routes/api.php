@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,13 @@ Route::get('categories/{category}/products', 'CategoryProductController@show');
 
 Route::get('email/show', "VerificationController@show");  
 Route::get('email/verify', "VerificationController@verify");
-Route::get('email/resend', "VerificationController@resend");  
+Route::get('email/resend', "VerificationController@resend");
 
+Route::patch('tags/{tag}', 'TagController@update');
+Route::delete('tags/{tag}', 'TagController@destroy');
 
+Route::get('categories/{category}/tags', 'CategoryTagController@show');
+Route::post('categories/{category}/tags', 'CategoryTagController@store');
+
+Route::get('products/{product}/tags', 'ProductTagController@show');
+Route::post('products/{product}/tags', 'ProductTagController@store');
