@@ -15,6 +15,7 @@ class TagCreator
         $title = preg_replace('/-{2,}/', '-', $title);
 
         $title = trim($title);
+        $title = trim($title, '-');
 
         return $title;
     }

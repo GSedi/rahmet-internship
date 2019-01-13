@@ -33,7 +33,9 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 
         Gate::before(function($user){
-            return $user->isAdmin() || $user->isManager();
+            if($user->isAdmin() || $user->isManager()){
+                return true;
+            }
         });
     }
 }

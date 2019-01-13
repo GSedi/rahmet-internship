@@ -34,16 +34,16 @@ class ProductRequest extends FormRequest
                 'min:3',
             ],
             'color' => [
-                'required',
+                // 'required',
                 'min:3',
             ],
             'price' => [
-                'required',
+                // 'required',
                 'numeric',
                 'between:0.01,9999.99'
             ],
             'weight' => [
-                'required',
+                // 'required',
                 'numeric',
                 'between:0.001,999.999'
             ]

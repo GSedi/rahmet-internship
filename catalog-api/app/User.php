@@ -47,10 +47,28 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function isAdmin(){
-        return $this->roles()->where('label', 'ADM')->count() ? true : false;
+        // return $this->roles()->where('label', 'ADM')->count() ? true : false;
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->label == 'ADM')
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function isManager(){
-        return $this->roles()->where('label', 'MAN')->count() ? true : false;
+        // return $this->roles()->where('label', 'MAN')->count() ? true : false;
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->label == 'MAN')
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

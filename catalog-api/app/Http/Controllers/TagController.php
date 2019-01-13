@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tag;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\TagRequest;
+use App\TagCreator;
 
 
 class TagController extends Controller
@@ -32,7 +33,7 @@ class TagController extends Controller
         
         $this->authorize('update', $tag);
 
-        $tag->update($request->all());
+        $tag->update(['title' => TagCreator::validateTag($request['title'])]);
 
         return response()->json($tag, 200);
     }

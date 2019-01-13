@@ -23,6 +23,7 @@ class CategoryPolicy
 
     public function update(User $user, Category $category)
     {
+        
         return $category->owner_id ==  $user->id;
     }
 }
